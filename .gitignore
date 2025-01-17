@@ -1,0 +1,31 @@
+### Node.js ###
+node_modules/
+npm-debug.log
+yarn-error.log
+
+### Environment Variables ###
+.env
+
+### Logs ###
+logs/
+*.log
+
+### Build ###
+dist/
+build/
+
+### Editor & System Files ###
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+### React/Vite ###
+client/node_modules/
+client/dist/
+client/.env
+
+### Express Server ###
+server/node_modules/
+server/dist/
+server/.env
