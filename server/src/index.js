@@ -4,17 +4,25 @@ import {StreamChat} from "stream-chat";
 import {v4 as uuidV4} from "uuid"
 import bcrypt from "bcrypt";
 import dotenv from 'dotenv';
+import path from "path";
+import { fileURLToPath } from "url";
 
-dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
+
+// dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT_NUMBER = 3001;
+const PORT_NUMBER = process.env.PORT;
 
-const api_key = "fkf3ftmwcn8c";
-const api_secret = "wp46bajtd566za7wa5xvccs8b6r7bfpkydecpyyra83j8yge5zbaa7jxpqehaf8r";
+const api_key =  process.env.REACT_APP_api_key;
+const api_secret = process.env.REACT_APP_api_secret;
 
 const serverClient = StreamChat.getInstance(api_key, api_secret);
 

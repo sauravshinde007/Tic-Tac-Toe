@@ -6,10 +6,19 @@ import JoinGame from './components/JoinGame';
 import {StreamChat} from "stream-chat";
 import {Chat} from "stream-chat-react";
 import Cookies from "universal-cookie";
+// import dotenv from 'dotenv';
+// import path from "path";
+// import { fileURLToPath } from "url";
+
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
 function App() {
 
-  const api_key = "fkf3ftmwcn8c";
+  const api_key = import.meta.env.VITE_API_KEY;
   const cookies = new Cookies();
   const token = cookies.get("token");
 
@@ -48,7 +57,7 @@ function App() {
   });
   }
   return (
-    <div>
+    <div className='App'>
       {isAuth ? (
           <Chat client={client}>
             <JoinGame />
