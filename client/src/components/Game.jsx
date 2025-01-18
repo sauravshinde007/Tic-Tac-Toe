@@ -11,7 +11,7 @@ function Game({channel, setChannel}) {
   });
 
   if(!playersJoined){
-    return <div>Waiting for your rival to join...</div>
+    return <div><h3>Waiting for your rival to join...</h3></div>
   }
   return (
     <div className='gameContainer'>
@@ -28,14 +28,17 @@ function Game({channel, setChannel}) {
         <MessageInput noFiles/>
       </Window>
       {/* Leave Button */}
-      <button onClick={async () => {
+      <button className='leaveGameButton' onClick={async () => {
           await channel.stopWatching();
           setChannel(null);
       }}>Leave Game</button>
 
-      {/* Display Winner */}
-      {result.state === "won" && <div className='winnerMessage'>{result.winner} Won The Game</div>}
-      {result.state === "tie" && <div className='tieMessage'>Game Tied !!</div>}
+      {/* Display Winner or Tie Message */}
+      {result.state !== "none" && (
+        <div className={`resultMessage ${result.state === "tie" ? "tieMessage" : ""}`}>
+          {result.state === "won" ? `${result.winner} Won The Game! 🎉` : "Game Tied! 🤝"}
+        </div>
+      )}
     </div>
   )
 }

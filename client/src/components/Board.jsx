@@ -3,8 +3,12 @@ import {useChannelStateContext, useChatContext} from "stream-chat-react";
 import Square from './Square'
 import { Patterns } from './WinningPattern';
 
+import SelectSound from "../assets/Sounds/SelectSound.wav"
+import WinSound from "../assets/Sounds/WINSound.mp3"
+import TieSound from "../assets/Sounds/TieSound.wav"
+
 function Board({result, setResult}) {
-  const [board, setBoard] = useState(["", "", "", "", "", "", "", "", "", ""]);
+  const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
   const [player, setPlayer] = useState("X"); //to represent player
   const [turn, setTurn] = useState("X"); // to represent turn of player
 
@@ -15,9 +19,15 @@ function Board({result, setResult}) {
   useEffect(() => {
     checkWin();
     checkforTie();
-  },[board]);
+  }, [board]);
 
   const chooseSquare = async (square) => {
+
+    if (result.state !== "none") return; // Stop if game already won or tied
+
+    //play sound
+    new Audio(SelectSound).play()
+
     if(turn === player && board[square] === ""){
       setTurn(player === "X" ? "O" : "X");
 
@@ -51,6 +61,7 @@ function Board({result, setResult}) {
         });
 
         if(foundWinningPattern){
+          new Audio(WinSound).play();
           setResult({winner :board[currentPattern[0]], state: "won"})  
         }
     });
@@ -59,13 +70,16 @@ function Board({result, setResult}) {
   const checkforTie = () => {
     let filled = true;
     board.forEach((square) => {
-      if(square == "") filled = false;
+      if (square == "") {
+        filled = false;
+      }
     });
 
-    if(filled) {
-      setResult({winner: "none", state: "tie"});
+    if (filled) {
+      new Audio(TieSound).play();
+      setResult({ winner: "none", state: "tie" });
     }
-  }
+  };
 
   channel.on((event) => {
     if(event.type == "game-move" && event.user.id !== client.userID){

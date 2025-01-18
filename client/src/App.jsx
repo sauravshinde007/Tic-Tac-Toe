@@ -6,15 +6,6 @@ import JoinGame from './components/JoinGame';
 import {StreamChat} from "stream-chat";
 import {Chat} from "stream-chat-react";
 import Cookies from "universal-cookie";
-// import dotenv from 'dotenv';
-// import path from "path";
-// import { fileURLToPath } from "url";
-
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-// dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
 function App() {
 
@@ -61,10 +52,12 @@ function App() {
       {isAuth ? (
           <Chat client={client}>
             <JoinGame />
-            <button onClick={logOut}>Log Out</button> 
+            <button className='logout-button' onClick={logOut}>Log Out</button> 
           </Chat>
       ) :(
       <>
+        <h1 className='Supreme-Spike'>Tic Tac Toe</h1>
+        <h2 className='Supreme-subheading'>Multiplayer Fun with Friends!</h2>
         <SignUp setIsAuth = {setIsAuth}/>
         <Login setIsAuth = {setIsAuth}/>
       </>

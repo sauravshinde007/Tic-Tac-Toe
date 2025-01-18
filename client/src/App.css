@@ -1,102 +1,266 @@
+:root {
+  --primary-color: #563A9C;
+  --secondary-color: #8B5DFF;
+  --hover-color: #6A42C2;
+  --background-color: #FFF7D1;
+  --border-radius: 4px;
+  --transition: all 0.3s ease-in-out;
+}
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .App {
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #76a2ff;
+  background-color: var(--background-color);
+  position: relative;
+
 }
 
-body {
-  padding: 0;
-  margin: 0;
+/* Typography */
+@font-face {
+  font-family: 'Supreme-Spike';
+  src: url(../public/Fonts/SupremeSpike-KVO8D.otf);
+  font-display: swap;
 }
 
+.Supreme-Spike {
+  font-family: 'Supreme-Spike', sans-serif;
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(30px, 10vw, 100px);
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.Supreme-subheading {
+  position: absolute;
+  top: 170px;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(16px, 3vw, 30px);
+  color: var(--hover-color);
+  font-family: Helvetica, sans-serif;
+}
+
+/* Auth Container: Holds Login & SignUp */
+.auth-container {
+  display: flex;
+  flex-direction: row; /* Side by side by default */
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  max-width: 800px;
+  margin-top: 200px;
+
+}
+
+/* Form Styles */
 .login,
 .signUp {
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  gap: 15px;
+  width: 100%;
+  max-width: 350px;
+  padding: 20px;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .login input,
-.signUp input {
+.signUp input,
+.joinGame input {
   margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 300px;
-  height: 30px;
+  padding: 12px;
+  border: 2px solid var(--hover-color);
+  border-radius: var(--border-radius);
+  width: calc(100% - 20px);
+  height: 50px;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  font-size: 16px;
+  transition: var(--transition);
 }
 
+.login input:focus,
+.signUp input:focus,
+.joinGame input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(139, 93, 255, 0.2);
+}
+
+/* Button Styles */
 .login button,
-.signUp button {
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 320px;
-  height: 30px;
+.signUp button,
+.joinGame button,
+.logout-button {
+  padding: 12px;
+  border: none;
+  border-radius: var(--border-radius);
   cursor: pointer;
-}
-
-.login label,
-.signUp label {
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
+  background-color: var(--secondary-color);
   color: white;
+  font-size: 16px;
+  font-weight: bold;
+  transition: var(--transition);
+  width: 100%;
+  height: 50px;
 }
 
+.login button:hover,
+.signUp button:hover,
+.joinGame button:hover,
+.logout-button:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-1px);
+}
+
+/* Game Board */
 .board {
-  width: 500px;
-  height: 500px;
-  background-color: rgb(252, 252, 252);
-  border: 1px solid black;
+  width: min(500px, 90vw);
+  height: min(500px, 90vw);
+  background-color: var(--background-color);
+  border: 2px solid var(--hover-color);
   display: flex;
   flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .row {
-  flex: 33%;
+  flex: 1;
   display: flex;
-  flex-direction: row;
 }
 
 .square {
-  flex: 33%;
-  height: 100%;
-  border: 1px solid black;
+  flex: 1;
+  border: 2px solid var(--secondary-color);
   cursor: pointer;
   display: grid;
   place-items: center;
-  font-size: 30px;
-  color: black;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(20px, 5vw, 30px);
+  color: var(--primary-color);
+  font-weight: bold;
+  background-color: var(--background-color);
+  transition: var(--transition);
+}
+
+.square:hover {
+  background-color: rgba(139, 93, 255, 0.1);
 }
 
 .square:active {
-  background-color: lightgray;
-}
-
-h4 {
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--secondary-color);
   color: white;
-  font-size: 30px;
 }
 
-.joinGame input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 220px;
-  height: 30px;
+/* Join Game Component */
+.joinGame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  max-width: 350px;
 }
-.joinGame button {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 220px;
-  height: 51px;
+
+/* Logout Button */
+.logout-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50;
+  width: min(220px, 90%);
+}
+
+.leaveGameButton {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #FF4B2B, #FF416C);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  width: min(220px, 90%);
+  text-align: center;
+}
+
+.leaveGameButton:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0px 4px 10px rgba(255, 65, 108, 0.4);
+}
+
+.leaveGameButton:active {
+  transform: translateX(-50%) scale(0.95);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  .auth-container {
+    flex-direction: column; /* Stack only on small screens */
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .login,
+  .signUp,
+  .joinGame {
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .board {
+    margin: 20px;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: var(--border-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hover-color);
 }
