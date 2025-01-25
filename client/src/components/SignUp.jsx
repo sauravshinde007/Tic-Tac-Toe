@@ -12,7 +12,7 @@ function SignUp({setIsAuth}) {
         return;
       }
 
-      Axios.post("http://localhost:3001/signup", user).then((res)=>{
+      Axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/signup`, user).then((res)=>{
         const {token, userID, firstName, lastName, username, hashedPassword} = res.data;
 
         cookies.set("token",token);

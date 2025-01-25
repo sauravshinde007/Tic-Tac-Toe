@@ -13,7 +13,7 @@ function Login({setIsAuth}) {
         alert("Username and password are required");
         return;
       }
-      Axios.post("http://localhost:3001/login",{
+      Axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/login`,{
         username,
         password,
       }).then((res)=>{
